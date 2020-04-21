@@ -217,8 +217,8 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                 that.kinetic_stage.add(that.layer);
 
                 $(window).on('resize', function() {
-
-                    if (!($(that.stepData.enjoyHintElementSelector).is(":visible"))) {
+                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    if (!($(el).is(":visible"))) {
 
                         that.stopFunction();
                         $(window).off('resize');
@@ -228,7 +228,7 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                     prevWindowWidth = window.innerWidth;
                     prevWindowHeight = window.innerHeight;
 
-                    var boundingClientRect = $(that.stepData.enjoyHintElementSelector)[0].getBoundingClientRect();
+                    var boundingClientRect = $(el)[0].getBoundingClientRect();
 
                     that.shape.attrs.center_x = Math.round(boundingClientRect.left + boundingClientRect.width / 2);
                     that.shape.attrs.center_y = Math.round(boundingClientRect.top + boundingClientRect.height / 2);
@@ -609,7 +609,7 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                         var by_top_side = data.by_top_side;
                         var control_point_x = 0;
                         var control_point_y = 0;
-                    
+
                     if (window.innerWidth >= 640) {
 
                         if (by_top_side) {
@@ -705,7 +705,7 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                     that.stepData = data;
 
                     function findParentDialog(element) {
-
+                        return null
                         if (element.tagName === "MD-DIALOG") {
 
                             return element;
@@ -718,7 +718,8 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                         }
                     }
 
-                    var dialog = findParentDialog($(that.stepData.enjoyHintElementSelector)[0]);
+                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    var dialog = findParentDialog(el);
 
                     if (dialog != null) {
 

@@ -53,7 +53,9 @@ var EnjoyHint = function (_options) {
 
                 options.onSkip();
                 skipAll();
-            }
+            },
+
+            shadowRoot: options.shadowRoot
         });
     };
 
@@ -136,8 +138,9 @@ var EnjoyHint = function (_options) {
             $(document.body).scrollTop(step_data.selector, step_data.scrollAnimationSpeed || 250, {offset: -100});
 
             setTimeout(function () {
-
-                var $element = $(step_data.selector);
+                var shadowRoot = options.shadowRoot;
+                var $element = $(shadowRoot.querySelector(step_data.selector));
+                // var $element = $(step_data.selector);
                 var event = makeEventName(step_data.event);
 
                 $body.enjoyhint('show');
