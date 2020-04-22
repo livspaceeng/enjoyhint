@@ -139,7 +139,11 @@ var EnjoyHint = function (_options) {
 
             setTimeout(function () {
                 var shadowRoot = options.shadowRoot;
-                var $element = $(shadowRoot.querySelector(step_data.selector));
+                if (step_data.inDocumentRoot) {
+                  var $element = $(document.querySelector(step_data.selector));
+                } else {
+                  var $element = $(shadowRoot.querySelector(step_data.selector));
+                }
                 // var $element = $(step_data.selector);
                 var event = makeEventName(step_data.event);
 
@@ -634,7 +638,12 @@ var EnjoyHint = function (_options) {
                 that.kinetic_stage.add(that.layer);
 
                 $(window).on('resize', function() {
-                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    if (that.stepData.inDocumentRoot) {
+                      var el = document.querySelector(that.stepData.enjoyHintElementSelector)
+                    } else {
+                      var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    }
+
                     if (!($(el).is(":visible"))) {
 
                         that.stopFunction();
@@ -1134,8 +1143,12 @@ var EnjoyHint = function (_options) {
                             return findParentDialog($(element).parent()[0]);
                         }
                     }
+                    if (that.stepData.inDocumentRoot) {
+                      var el = document.querySelector(that.stepData.enjoyHintElementSelector)
+                    } else {
+                      var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    }
 
-                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
                     var dialog = findParentDialog(el);
 
                     if (dialog != null) {

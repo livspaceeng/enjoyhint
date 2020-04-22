@@ -217,7 +217,12 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                 that.kinetic_stage.add(that.layer);
 
                 $(window).on('resize', function() {
-                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    if (that.stepData.inDocumentRoot) {
+                      var el = document.querySelector(that.stepData.enjoyHintElementSelector)
+                    } else {
+                      var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    }
+
                     if (!($(el).is(":visible"))) {
 
                         that.stopFunction();
@@ -717,8 +722,12 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
                             return findParentDialog($(element).parent()[0]);
                         }
                     }
+                    if (that.stepData.inDocumentRoot) {
+                      var el = document.querySelector(that.stepData.enjoyHintElementSelector)
+                    } else {
+                      var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
+                    }
 
-                    var el = that.options.shadowRoot.querySelector(that.stepData.enjoyHintElementSelector)
                     var dialog = findParentDialog(el);
 
                     if (dialog != null) {

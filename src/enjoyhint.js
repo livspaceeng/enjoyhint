@@ -139,7 +139,11 @@ var EnjoyHint = function (_options) {
 
             setTimeout(function () {
                 var shadowRoot = options.shadowRoot;
-                var $element = $(shadowRoot.querySelector(step_data.selector));
+                if (step_data.inDocumentRoot) {
+                  var $element = $(document.querySelector(step_data.selector));
+                } else {
+                  var $element = $(shadowRoot.querySelector(step_data.selector));
+                }
                 // var $element = $(step_data.selector);
                 var event = makeEventName(step_data.event);
 
