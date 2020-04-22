@@ -254,7 +254,7 @@ var EnjoyHint = function (_options) {
 
                 var max_habarites = Math.max($element.outerWidth(), $element.outerHeight());
                 var radius = step_data.radius || Math.round(max_habarites / 2) + 5;
-                var offset = $element.offset();
+                var offset = $element[0].getBoundingClientRect();
                 var w = $element.outerWidth();
                 var h = $element.outerHeight();
                 var shape_margin = (step_data.margin !== undefined) ? step_data.margin : 10;
